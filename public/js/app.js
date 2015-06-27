@@ -1,9 +1,28 @@
 angular.module('PostsApp', [])
-.controller('PostListController',['$scope', '$http', function($scope, $http) {
+.controller('AddPostController', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
+	$scope.post = {};
+	$scope.addPost = function() {
+		$('#addPostModal').modal();
+	};
 
-	$http.get('/posts').success(function(response){
-		console.log("got response" + response);
-		$scope.postList = response;
+	$scope.submitPost = function(item, event) {
+		$http.post('/post', $scope.post).success(function(response) {
+			console.log("got response:" + JSON.stringify(response));
+			$rootScope.$emit('refresh');
+		});
+	};
+}])
+.controller('PostListController',['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
+
+	var refresh = function() {
+		$http.get('/posts').success(function(response) {
+			$scope.postList = response;
+		});
+	};
+	
+	refresh();
+
+	$rootScope.$on('refresh', function(event, data){
+		refresh();
 	});
-
 }]);

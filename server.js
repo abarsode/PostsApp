@@ -15,5 +15,12 @@ app.get('/posts', function (req, res) {
   });
 });
 
+app.post('/post', function (req, res) {
+  console.log('I received a POST request');
+  db.posts.insert(req.body, function (err, doc) {
+    res.json(doc);
+  });
+});
+
 app.listen(3000);
 console.log('Server running on port 3000');
