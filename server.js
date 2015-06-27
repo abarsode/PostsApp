@@ -22,5 +22,13 @@ app.post('/post', function (req, res) {
   });
 });
 
+app.delete('/post/:id', function(req, res) {
+  var id = req.params.id;
+  console.log('I received a DELETE request for' + id);
+  db.posts.remove({_id: mongojs.ObjectId(id)}, function (err, doc) {
+    res.json(doc);
+  });
+
+});
 app.listen(3000);
 console.log('Server running on port 3000');

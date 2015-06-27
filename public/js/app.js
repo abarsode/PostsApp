@@ -25,4 +25,11 @@ angular.module('PostsApp', [])
 	$rootScope.$on('refresh', function(event, data){
 		refresh();
 	});
+
+	$scope.deletePost = function(id) {
+		$http.delete('/post/' + id).success(function(response){
+			console.log('Successfully deleted response.title');
+			refresh();
+		});
+	};
 }]);

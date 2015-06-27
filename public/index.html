@@ -51,6 +51,7 @@
 	<div class="list-group col-md-10 col-md-offset-1" ng-controller="PostListController">
 		<div ng-repeat="post in postList">
 			<a href="#" class="list-group-item">
+				<button type="button" class="close"  ng-click="deletePost(post._id)">&times;</button>
 				<h4 class="list-group-item-heading">{{post.title}}</h4>
 				<p class="list-group-item-text">{{post.content}}</p>
 			</a>
