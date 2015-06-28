@@ -28,7 +28,21 @@ angular.module('PostsApp', [])
 
 	$scope.deletePost = function(id) {
 		$http.delete('/post/' + id).success(function(response){
-			console.log('Successfully deleted response.title');
+			console.log('Successfully deleted' + response._id);
+			refresh();
+		});
+	};
+
+	$scope.updatePostModal = function(id) {
+		$http.get('/post/' + id).success(function(response) {
+    		$scope.update = response;
+			$('#updatePostModal').modal();
+  		});
+	};
+
+	$scope.updatePost = function(item, event) {
+		$http.put('/post/' + $scope.update._id, $scope.update).success(function(response){
+			console.log('Successfully updated' +  response._id);
 			refresh();
 		});
 	};

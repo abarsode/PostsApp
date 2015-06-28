@@ -15,6 +15,14 @@ app.get('/posts', function (req, res) {
   });
 });
 
+app.get('/post/:id', function (req, res) {
+  var id = req.params.id;
+    console.log('I received a GET request for ' + id);
+  db.posts.findOne({_id: mongojs.ObjectId(id)},function (err, docs) {
+    res.json(docs);
+  });
+});
+
 app.post('/post', function (req, res) {
   console.log('I received a POST request');
   db.posts.insert(req.body, function (err, doc) {
@@ -28,7 +36,23 @@ app.delete('/post/:id', function(req, res) {
   db.posts.remove({_id: mongojs.ObjectId(id)}, function (err, doc) {
     res.json(doc);
   });
+});  
+
+app.put('/post/:id', function(req, res) {
+ var id = req.params.id;
+ console.log('I received a UPDATE request for' + id);
+  
+db.posts.findAndModify({
+
+  	query: {_id: mongojs.ObjectId(id)},
+
+  	update: {$set: {title: req.body.title, content: req.body.content }}, new: true}, 
+  	function (err, doc) {
+      res.json(doc);
+    }
+);
 
 });
+
 app.listen(3000);
 console.log('Server running on port 3000');
