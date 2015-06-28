@@ -1,7 +1,9 @@
 angular.module('PostsApp', [])
 .controller('AddPostController', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
-	$scope.post = {};
+		$scope.post = {};
 	$scope.addPost = function() {
+		$scope.post.title = '';
+		$scope.post.content = '';
 		$('#addPostModal').modal();
 	};
 
