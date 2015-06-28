@@ -26,7 +26,8 @@ angular.module('PostsApp', [])
 		refresh();
 	});
 
-	$scope.deletePost = function(id) {
+	$scope.deletePost = function(id, $event) {
+		$event.stopPropagation();
 		$http.delete('/post/' + id).success(function(response){
 			console.log('Successfully deleted' + response._id);
 			refresh();
