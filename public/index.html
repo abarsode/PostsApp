@@ -49,8 +49,9 @@
 
 	<!--Our list of post will appear here. -->
 	<div ng-controller="PostListController">
+		<input type="text" class="col-md-6 col-md-offset-3 well well-sm" placeholder="filter posts" ng-model="filterPosts" autofocus>
 		<div class="list-group col-md-10 col-md-offset-1">
-		<div ng-repeat="post in postList">
+		<div ng-repeat="post in postList | filter:filterPosts">
 			<a href="#" class="list-group-item" ng-click="updatePostModal(post._id)">
 				<button type="button" class="close"  ng-click="deletePost(post._id, $event)">&times;</button>
 				<h4 class="list-group-item-heading">{{post.title}}</h4>
